@@ -1,14 +1,16 @@
 package com.jacksspring.dscommerce.entity;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.*;
 
 
 @Entity
-@Table(name="tb_user")
-public class User {
+@Table(name = "tb_user")
+public class User  implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +31,7 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
 
-
-
-    public User() {
+    public User()  {
     }
 
     public User(Long id, String name, String email, String phone, LocalDate birthDate, String password) {
@@ -50,6 +50,7 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;
@@ -83,13 +84,6 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public List<Order> getOrders() {
         return orders;
@@ -111,6 +105,49 @@ public class User {
         }
         return false;
     }
+
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return  roles;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+
 
 
     @Override
