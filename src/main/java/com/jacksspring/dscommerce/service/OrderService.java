@@ -27,6 +27,9 @@ public class OrderService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AuthService authService;
+
 
 
     @Transactional(readOnly = true)
@@ -36,7 +39,7 @@ public class OrderService {
         );
 
 
-
+        authService.validateSelfOrAdmin(order.getClient().getId());
         return new OrderDTO(order);
 
     }
