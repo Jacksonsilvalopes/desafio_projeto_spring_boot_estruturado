@@ -1,7 +1,9 @@
 package com.jacksspring.dscommerce.service;
 
+import com.jacksspring.dscommerce.dto.CategoryDTO;
 import com.jacksspring.dscommerce.dto.ProductDTO;
 import com.jacksspring.dscommerce.dto.ProductMintDTO;
+import com.jacksspring.dscommerce.entity.Category;
 import com.jacksspring.dscommerce.entity.Product;
 import com.jacksspring.dscommerce.repository.ProductRepository;
 import com.jacksspring.dscommerce.service.exceptions.DatabaseException;
@@ -78,6 +80,14 @@ public class ProductService {
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
         product.setImgUrl(productDTO.getImgUrl());
+        product.getCategories().clear();
+
+        for(CategoryDTO categoryDTO : productDTO.getCategories()){
+            Category cat = new Category();
+            cat.setId(categoryDTO.getId());
+            cat.setName(categoryDTO.getName());
+            product.getCategories().add(cat);
+        }
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
