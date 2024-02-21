@@ -1,6 +1,7 @@
 package com.jacksspring.dscommerce.service;
 
 import com.jacksspring.dscommerce.dto.ProductDTO;
+import com.jacksspring.dscommerce.dto.ProductMintDTO;
 import com.jacksspring.dscommerce.entity.Product;
 import com.jacksspring.dscommerce.repository.ProductRepository;
 import com.jacksspring.dscommerce.service.exceptions.DatabaseException;
@@ -39,10 +40,11 @@ public class ProductService {
 
 
     @Transactional
-    public Page<ProductDTO> findAll(Pageable pageable) {
+    public Page<ProductMintDTO> findAll(Pageable pageable) {
         Page<Product> result = productRepository.findAll(pageable);
-        return result.map(x -> new ProductDTO(x));
+        return result.map(x -> new ProductMintDTO(x));
     }
+
 
 
     @Transactional

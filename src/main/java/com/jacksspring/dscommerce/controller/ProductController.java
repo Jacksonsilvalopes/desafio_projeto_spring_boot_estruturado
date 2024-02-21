@@ -3,6 +3,7 @@ package com.jacksspring.dscommerce.controller;
 import com.jacksspring.dscommerce.dto.ProductDTO;
 
 
+import com.jacksspring.dscommerce.dto.ProductMintDTO;
 import com.jacksspring.dscommerce.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class ProductController {
 
     @GetMapping
 
-        public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
-        Page<ProductDTO> result = productService.findAll(pageable);
+    public ResponseEntity<Page<ProductMintDTO>> findAll(Pageable pageable) {
+        Page<ProductMintDTO> result = productService.findAll(pageable);
         return ResponseEntity.ok(result);
 
     }
